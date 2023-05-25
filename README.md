@@ -36,7 +36,7 @@ Follow these steps to start exploring the world of PI AGI:
 3. Configure the environment parameters as mentioned in the [Repository Overview](#wrench-repository-overview) section.
 4. Create .env file and set your environment configuration, and other necessary configurations.
 5. Customize or add new AGIs by modifying the agi prompts located in the `src/asset/agi` folder.
-6. Update the project documentation in `src/asset/input/backend-example-project-documentation.md` and `src/asset/input/frontend-example-project-documentation.md` to match your requirements.
+6. Update the music definition in `src/asset/input/music-definition.md` to match your requirements.
 7. Once you've set up everything, run `npm start` to kick off the AGI.
 
 ## :wrench: Repository Overview
