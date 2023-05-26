@@ -49,9 +49,18 @@ For 'addNote', the input will include the instrument name, note and duration. He
 "input": {
 "instrumentName": "Garageband Instrument Name",
 "note": "Note to be played",
-"duration": "Duration of the note",
+"duration": "Duration of the note. Make sure the duration here corresponds to the desired tempo and overall length. At 120 BPM, a quarter note would last 0.5 seconds. For a 2-minute long MIDI, you need to ensure the total duration of all notes sums up to approximately 120 seconds. While setting this value, you can refer the duration map below.",
 "velocity": "Velocity of the note"
 }
+}
+
+Duration Map:
+{
+whole: '1',
+half: '2',
+quarter: '4',
+eighth: '8',
+sixteenth: '16',
 }
 
 For 'exportMIDI', the input will include the instrument name will be exported as midi and this action will be called when midi is ready to be generated for an instrument. Here is an example payload for 'exportMIDI':
@@ -69,5 +78,7 @@ Only one JSON object as shown above will be accepted by the code. Ensure the 'co
 Begin by providing the first JSON object for the composition process, including the first action and self-iterative prompts.
 
 Ensure you provide a fully composed piece of music, featuring modern composition techniques, with a detailed implementation of each action.
+
+Ensure that each MIDI file you generate is approximately 2 minutes long and is harmonically synchronized. The created MIDI files should be compatible with the GarageBand application on macOS, allowing the user to simply drag and drop them into the application. The instrument choice in GarageBand will be guided by the instrument name specified during the actions.
 
 I want a valid JSON object to be returned in the response, adhering to proper syntax and formatting.
