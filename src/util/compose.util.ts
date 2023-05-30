@@ -13,6 +13,31 @@ export class ComposeUtil {
     return `Created and added instrument '${name}'`;
   }
 
+  addChord(
+    instrumentName: string,
+    notes: string[],
+    duration: string,
+    velocity: number = 70
+  ): string {
+    const instrument = this.instruments[instrumentName];
+
+    if (!instrument) {
+      return `Instrument '${instrumentName}' not found`;
+    }
+
+    const midiDuration = this.getMIDIDuration(duration);
+
+    if (!midiDuration) {
+      return `Invalid duration '${duration}' for instrument '${instrumentName}'`;
+    }
+
+    const chord = { notes, duration: midiDuration, velocity };
+    instrument.push(chord);
+
+    const chordNotes = notes.join('+');
+    return `Added chord '${chordNotes}' with duration '${duration}' to instrument '${instrumentName}'`;
+  }
+
   addNote(
     instrumentName: string,
     note: string,

@@ -24,6 +24,13 @@ export class ComposeActionUtil implements Actionable<MergedActionType> {
             action.input.duration,
             action.input.velocity
           );
+        case ComposeActionType.ADD_CHORD:
+          return this.composeUtil.addChord(
+            action.input.instrumentName,
+            action.input.notes,
+            action.input.duration,
+            action.input.velocity
+          );
         case ComposeActionType.EXPORT_MIDI:
           return await this.composeUtil.exportMIDI(action.input.name);
         default:

@@ -28,6 +28,7 @@ Here you can find the Action Types; you should use string values in the 'type' f
 ComposeActionType {
 ADD_INSTRUMENT = 'addInstrument',
 ADD_NOTE = 'addNote',
+ADD_CHORD = 'addChord',
 EXPORT_MIDI = 'exportMIDI',
 }
 
@@ -39,7 +40,7 @@ For 'addInstrument', the input will include the name of the instrument. Here is 
 {
 "type": "addInstrument",
 "input": {
-"name": "Garageband Instrument Name"
+"name": "<Garageband Instrument Name>"
 }
 }
 
@@ -47,10 +48,21 @@ For 'addNote', the input will include the instrument name, note and duration. He
 {
 "type": "addNote",
 "input": {
-"instrumentName": "Garageband Instrument Name",
+"instrumentName": "<Garageband Instrument Name>",
 "note": "Note to be played",
-"duration": "Duration of the note. Make sure the duration here corresponds to the desired tempo and overall length. At 120 BPM, a quarter note would last 0.5 seconds. For a 2-minute long MIDI, you need to ensure the total duration of all notes sums up to approximately 120 seconds. While setting this value, you can refer the duration map below.",
+"duration": "Duration of the note. Make sure the duration here corresponds to the desired tempo and overall length. At 120 BPM, a quarter note would last 0.5 seconds. For a 2-minute long MIDI, you need to ensure the total duration of all notes sums up to approximately 120 seconds. While setting this value, you can refer the duration map below, you should use the key there as your value like 'quarter'.",
 "velocity": "Velocity of the note"
+}
+}
+
+For 'addChord', the input will include the instrument name, note and duration. Here is an example payload for 'addChord':
+{
+"type": "addChord",
+"input": {
+"instrumentName": "<Garageband Instrument Name>",
+"notes: string[]": "Array of notes to be played as chord",
+"duration": "Duration of the chord. Make sure the duration here corresponds to the desired tempo and overall length. At 120 BPM, a quarter note would last 0.5 seconds. For a 2-minute long MIDI, you need to ensure the total duration of all notes sums up to approximately 120 seconds. While setting this value, you can refer the duration map below, you should use the key there as your value like 'quarter'.",
+"velocity": "Velocity of the chord"
 }
 }
 
@@ -67,11 +79,14 @@ For 'exportMIDI', the input will include the instrument name will be exported as
 {
 "type": "exportMIDI",
 "input": {
-"name": "Garageband Instrument Name"
+"name": "<Garageband Instrument Name>"
 }
 }
 
-The route will be in cycle. First create the instrument, add notes and export the midi for the insturement. And do this for all instruments needed for the music.
+<Garageband Instrument Name>": This string value must be the exact instrument name in GarageBand.
+
+The route will be in cycle. First create the instrument, add notes, chords and export the midi for the insturement. Given addNote and addChord actions will be ordered as First In First Out. Do this for all instruments needed for the music.
+All instruments must have notes and chords that are fulfilling 2 minutes and in perfectly harmonized with other instruments.
 
 Only one JSON object as shown above will be accepted by the code. Ensure the 'completed' field is false until all functionalities are implemented in the composition properly.
 
