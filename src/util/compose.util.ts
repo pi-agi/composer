@@ -72,37 +72,52 @@ export class ComposeUtil {
     return durationMap[duration] || duration;
   }
 
-  async exportMIDI(instrumentName: string): Promise<string> {
-    const filePath = `${this.taskDir}/${instrumentName.toLowerCase()}.mid`;
+  async exportMIDI(): Promise<string[]> {
+    const fileUtil = new FileUtil();
+    const results: string[] = [];
 
     try {
-      const instrument = this.instruments[instrumentName];
+      for (const instrumentName in this.instruments) {
+        const instrument = this.instruments[instrumentName];
+        const filePath = `${this.taskDir}/${instrumentName.toLowerCase()}.mid`;
 
-      if (!instrument) {
-        return `Instrument '${instrumentName}' not found`;
+        if (!instrument) {
+          results.push(`Instrument '${instrumentName}' not found`);
+          continue;
+        }
+
+        const track = new MidiWriter.Track();
+
+        instrument.forEach(({ notes, note, duration }) => {
+          let pitch: MidiWriter.Pitch[] = [];
+
+          if (notes) {
+            // Handling chords
+            pitch = notes;
+          } else if (note) {
+            // Handling single notes
+            pitch = [note];
+          }
+
+          track.addEvent(
+            new MidiWriter.NoteEvent({
+              pitch: pitch as MidiWriter.Pitch[],
+              duration,
+            })
+          );
+        });
+
+        const write = new MidiWriter.Writer([track]);
+        const dataUri = write.dataUri().split(',')[1];
+        const buffer = Buffer.from(dataUri, 'base64');
+
+        await fileUtil.writeFileWithBuffer(filePath, buffer);
+        results.push(`Exported MIDI file: ${filePath}`);
       }
-
-      const track = new MidiWriter.Track();
-
-      instrument.forEach(({ note, duration }) => {
-        track.addEvent(
-          new MidiWriter.NoteEvent({
-            pitch: [note as MidiWriter.Pitch],
-            duration,
-          })
-        );
-      });
-
-      const write = new MidiWriter.Writer([track]);
-      const dataUri = write.dataUri().split(',')[1];
-      const buffer = Buffer.from(dataUri, 'base64');
-
-      const fileUtil = new FileUtil();
-
-      await fileUtil.writeFileWithBuffer(filePath, buffer);
-      return `Exported MIDI file: ${filePath}`;
     } catch (e: any) {
-      return `Error while exporting the MIDI file: ${filePath}, ${e.message}`;
+      results.push(`Error while exporting the MIDI files: ${e.message}`);
     }
+
+    return results;
   }
 }

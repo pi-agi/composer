@@ -32,7 +32,7 @@ export class ComposeActionUtil implements Actionable<MergedActionType> {
             action.input.velocity
           );
         case ComposeActionType.EXPORT_MIDI:
-          return await this.composeUtil.exportMIDI(action.input.name);
+          return await this.composeUtil.exportMIDI();
         default:
           throw new Error('Invalid action type');
       }

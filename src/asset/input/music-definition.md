@@ -12,10 +12,10 @@ The musical style of "Electric Odyssey" harnesses the raw power of rock, integra
 
 The instrumentation of "Electric Odyssey" captures the classic rock ensemble:
 
-- Electric Guitar: Driving the composition with aggressive riffs and soaring solos.
-- Bass Guitar: Enhancing the lower end, adding depth and groove to the rhythm.
-- Drums: Establishing a powerful rhythm and dynamic shifts throughout the composition.
-- Keyboards (optional): Can be used to add atmospheric textures or further harmonic complexity.
+- Electric Guitar: AGI will define the exact electric guitar instrument name to drive the composition with aggressive riffs and soaring solos.
+- Bass Guitar: AGI will define the exact bass guitar instrument name to enhance the lower end, adding depth and groove to the rhythm.
+- Drums: AGI will define the exact drums instrument name, establishing a powerful rhythm and dynamic shifts throughout the composition.
+- Keyboards (optional): AGI will define the exact keyboards instrument name, which can be used to add atmospheric textures or further harmonic complexity.
 
 ## Structure and Progression
 
